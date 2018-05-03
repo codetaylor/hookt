@@ -1,0 +1,16 @@
+[
+{
+  "modid": "hookt",
+  "name": "Hookt",
+  "description": "Configurable fishing drop rules.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["codetaylor"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
