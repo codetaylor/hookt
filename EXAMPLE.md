@@ -15,13 +15,13 @@ Replace all drops with string when using a copper fishing rod from ThermalFounda
       },
       "drops": [
         {
-          "item": {
-            "selector": {
-              "weight": {
-                "value": 1000
-              },
-              "luckLevelRequired": 1
+          "selector": {
+            "weight": {
+              "value": 1000
             },
+            "luckLevelRequired": 1
+          },
+          "item": {
             "items": [
               "minecraft:diamond"
             ]
