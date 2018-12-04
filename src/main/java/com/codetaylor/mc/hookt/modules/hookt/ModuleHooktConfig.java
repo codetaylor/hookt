@@ -1,7 +1,13 @@
 package com.codetaylor.mc.hookt.modules.hookt;
 
+import com.codetaylor.mc.hookt.ModHookt;
 import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber(modid = ModHookt.MOD_ID)
 @Config(modid = ModuleHookt.MOD_ID, name = ModuleHookt.MOD_ID + ".module.Hookt")
 public class ModuleHooktConfig {
 
@@ -15,4 +21,11 @@ public class ModuleHooktConfig {
   })
   public static boolean ENABLE_DIRECT_TO_INVENTORY = false;
 
+  @SubscribeEvent
+  public static void onConfigChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
+
+    if (event.getModID().equals(ModHookt.MOD_ID)) {
+      ConfigManager.sync(ModHookt.MOD_ID, Config.Type.INSTANCE);
+    }
+  }
 }
