@@ -78,22 +78,31 @@ public class EventHandler {
       );
 
       for (ItemStack itemstack : drops) {
-        EntityItem entityitem = new EntityItem(world, hookPos.getX(), hookPos.getY(), hookPos.getZ(), itemstack);
-        double d0 = playerPos.getX() - hookPos.getX();
-        double d1 = playerPos.getY() - hookPos.getY();
-        double d2 = playerPos.getZ() - hookPos.getZ();
-        double d3 = (double) MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 
-        entityitem.motionX = d0 * 0.1D;
-        entityitem.motionY = d1 * 0.1D + (double) MathHelper.sqrt(d3) * 0.08D;
-        entityitem.motionZ = d2 * 0.1D;
+        boolean directlyAdded = false;
 
-        world.spawnEntity(entityitem);
+        if (ModuleHooktConfig.ENABLE_DIRECT_TO_INVENTORY) {
+          directlyAdded = player.addItemStackToInventory(itemstack);
+        }
 
-        Item item = itemstack.getItem();
+        if (!directlyAdded) {
+          EntityItem entityitem = new EntityItem(world, hookPos.getX(), hookPos.getY(), hookPos.getZ(), itemstack);
+          double d0 = playerPos.getX() - hookPos.getX();
+          double d1 = playerPos.getY() - hookPos.getY();
+          double d2 = playerPos.getZ() - hookPos.getZ();
+          double d3 = (double) MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 
-        if (item == Items.FISH || item == Items.COOKED_FISH) {
-          player.addStat(StatList.FISH_CAUGHT, 1);
+          entityitem.motionX = d0 * 0.1D;
+          entityitem.motionY = d1 * 0.1D + (double) MathHelper.sqrt(d3) * 0.08D;
+          entityitem.motionZ = d2 * 0.1D;
+
+          world.spawnEntity(entityitem);
+
+          Item item = itemstack.getItem();
+
+          if (item == Items.FISH || item == Items.COOKED_FISH) {
+            player.addStat(StatList.FISH_CAUGHT, 1);
+          }
         }
       }
 

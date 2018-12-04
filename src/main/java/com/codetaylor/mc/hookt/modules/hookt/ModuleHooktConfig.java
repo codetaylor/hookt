@@ -10,4 +10,9 @@ public class ModuleHooktConfig {
   })
   public static boolean ENABLE_PROFILE_LOG_OUTPUT = false;
 
+  @Config.Comment({
+      "If true, fished-up items will go directly into the player's inventory instead of spawning in the world."
+  })
+  public static boolean ENABLE_DIRECT_TO_INVENTORY = false;
+
 }
