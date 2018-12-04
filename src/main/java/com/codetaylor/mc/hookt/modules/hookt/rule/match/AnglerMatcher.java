@@ -1,8 +1,10 @@
 package com.codetaylor.mc.hookt.modules.hookt.rule.match;
 
+import com.codetaylor.mc.hookt.modules.hookt.rule.data.EnumAnglerBoat;
 import com.codetaylor.mc.hookt.modules.hookt.rule.data.EnumAnglerType;
 import com.codetaylor.mc.hookt.modules.hookt.rule.data.RuleMatchAngler;
 import com.codetaylor.mc.hookt.modules.hookt.rule.log.DebugFileWrapper;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.player.EntityPlayer;
 
 import javax.annotation.Nullable;
@@ -43,14 +45,52 @@ public class AnglerMatcher {
           logFile.debug("[MATCH] [--] Angler detected, checking angler: " + angler);
         }
 
-        boolean result = this.heldItemMainHandMatcher.matches(
-            ruleMatchAngler.heldItemMainHand,
-            angler.getHeldItemMainhand(),
-            logFile,
-            debug
-        )
+        boolean result = this.heldItemMainHandMatcher.matches(ruleMatchAngler.heldItemMainHand, angler.getHeldItemMainhand(), logFile, debug)
             && this.playerNameMatcher.matches(ruleMatchAngler.playerName, angler.getName(), logFile, debug)
             && this.gameStageMatcher.matches(ruleMatchAngler.gamestages, angler, logFile, debug);
+
+        if (result) {
+
+          if (ruleMatchAngler.boat == EnumAnglerBoat.REQUIRE) {
+            result = (angler.getRidingEntity() instanceof EntityBoat);
+
+            if (debug) {
+
+              if (result) {
+                logFile.debug(String.format(
+                    "[MATCH] [OK] Angler is required to be in a boat: %s",
+                    angler.getRidingEntity().getClass()
+                ));
+
+              } else {
+                logFile.debug(String.format(
+                    "[MATCH] [!!] Angler is required to be in boat: %s",
+                    angler.getRidingEntity()
+                ));
+              }
+            }
+
+          } else if (ruleMatchAngler.boat == EnumAnglerBoat.EXCLUDE) {
+            result = !(angler.getRidingEntity() instanceof EntityBoat);
+
+            if (debug) {
+
+              if (result) {
+                logFile.debug(String.format(
+                    "[MATCH] [!!] Angler is required to not be in a boat: %s",
+                    angler.getRidingEntity()
+                ));
+
+              } else {
+                logFile.debug(String.format(
+                    "[MATCH] [OK] Angler is required to not be in a boat: %s",
+                    angler.getRidingEntity()
+                ));
+              }
+            }
+          }
+
+        }
 
         if (debug) {
 

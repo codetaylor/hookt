@@ -6,5 +6,6 @@ public class RuleMatchAngler {
   public RuleMatchAnglerGameStage gamestages = new RuleMatchAnglerGameStage();
   public RuleMatchAnglerHeldItemMainHand heldItemMainHand = new RuleMatchAnglerHeldItemMainHand();
   public RuleMatchAnglerPlayerName playerName = new RuleMatchAnglerPlayerName();
+  public EnumAnglerBoat boat = EnumAnglerBoat.ANY;
 
 }
