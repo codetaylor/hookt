@@ -4,6 +4,7 @@ import com.codetaylor.mc.hookt.modules.hookt.ModuleHookt;
 import com.codetaylor.mc.hookt.modules.hookt.ModuleHooktConfig;
 import com.codetaylor.mc.hookt.modules.hookt.Util;
 import com.codetaylor.mc.hookt.modules.hookt.rule.RuleLocator;
+import com.codetaylor.mc.hookt.modules.hookt.rule.data.EnumInvulnerableDrops;
 import com.codetaylor.mc.hookt.modules.hookt.rule.data.Rule;
 import com.codetaylor.mc.hookt.modules.hookt.rule.drop.DropModifier;
 import com.codetaylor.mc.hookt.modules.hookt.rule.log.DebugFileWrapper;
@@ -95,6 +96,13 @@ public class EventHandler {
           entityitem.motionX = d0 * 0.1D;
           entityitem.motionY = d1 * 0.1D + (double) MathHelper.sqrt(d3) * 0.08D;
           entityitem.motionZ = d2 * 0.1D;
+
+          if (matchedRule.invulnerableDrops == EnumInvulnerableDrops.TRUE) {
+            entityitem.setEntityInvulnerable(true);
+
+          } else if (matchedRule.invulnerableDrops == EnumInvulnerableDrops.FALSE) {
+            entityitem.setEntityInvulnerable(false);
+          }
 
           world.spawnEntity(entityitem);
 
