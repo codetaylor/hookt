@@ -32,6 +32,7 @@ Each `IRule` entry is matched in the same order it is defined the file.
 &nbsp;&nbsp;"match": [IRuleMatch](#irulematch),
 &nbsp;&nbsp;"replaceStrategy": enum,
 &nbsp;&nbsp;"dropStrategy": enum,
+&nbsp;&nbsp;"invulnerableDrops": enum,
 &nbsp;&nbsp;"dropCount": [IRandomLuckInt](#irandomluckint),
 &nbsp;&nbsp;"drops": [IRuleDrop](#iruledrop)[]
 }
@@ -57,6 +58,12 @@ Each `IRule` entry is matched in the same order it is defined the file.
   * &#x1F539;*Optional* - if omitted, defaults to `REPEAT`.
   * `REPEAT`: When picking drops from the weighted picker, any <code>[IRuleDrop](#iruledrop)</code> that is selected may be selected more than once.
   * `UNIQUE`: When picking drops from the weighted picker, any <code>[IRuleDrop](#iruledrop)</code> that is selected will be removed from the picker, ensuring that it will only be selected once. If the picker is depleted before the defined `dropCount` is reached, drop picking will stop.
+
+* `dropStrategy`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `DEFAULT`.
+  * `TRUE`: Dropped entities will be flagged as invulnerable. (Useful for nether fishing)
+  * `FALSE`: Dropped entities will be flagged as vulnerable.
+  * `DEFAULT`: Dropped entities will not be affected.
 
 * `dropCount`: <code>[IRandomLuckInt](#irandomluckint)</code>
   * &#x1F539;*Optional* - if omitted, defaults to `1`.
@@ -134,6 +141,7 @@ This object defines conditions specific to the angler.
 &nbsp;&nbsp;"heldItemMainHand": [IRuleMatchAnglerHeldItemMainHand](#irulematchanglerhelditemmainhand),
 &nbsp;&nbsp;"gamestages": [IRuleMatchAnglerGameStage](#irulematchanglergamestage),
 &nbsp;&nbsp;"playerName": [IRuleMatchAnglerPlayerName](#irulematchanglerplayername)
+&nbsp;&nbsp;"boat": enum
 }
 </pre></big>
 
@@ -154,6 +162,12 @@ This object defines conditions specific to the angler.
 * `playerName`: <code>[IRuleMatchAnglerPlayerName](#irulematchanglerplayername)</code>
   * &#x1F539;*Optional* - if omitted, this condition will pass.
   * This object defines conditions for matching player names.
+
+* `boat`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `ANY`.
+  * `REQUIRE`: The angler must be in a boat to match.
+  * `EXCLUDE`: The angler must not be in a boat to match.
+  * `ANY`: The matcher will accept either.
 
 ## IRuleMatchAnglerHeldItemMainHand
 
